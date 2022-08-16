@@ -10,15 +10,22 @@ export class ImdbService {
 
   private apiKey: string = 'k_qgmbon31';
   baseUrl: string = 'http://localhost:3000/items';
-  baseUrlPoster: string = `https://imdb-api.com/en/API/Posters/${this.apiKey}`;
+  baseUrlPoster: string = `https://imdb-api.com/en/API/Posters/${this.apiKey}/`;
 
   constructor(private httpClient: HttpClient) { }
 
-  getDate(): Observable<ImdbFilmModel> {
-    return this.httpClient.get<ImdbFilmModel>(this.baseUrl);
+  getData(): Observable<ImdbFilmModel[]> {
+    return this.httpClient.get<ImdbFilmModel[]>(this.baseUrl);
   }
 
-  getPoster(id: string): Observable<any> {
+  getPosters(id: string): Observable<any> {
     return this.httpClient.get<any>(this.baseUrlPoster + id);
+  }
+
+  putPosters(id: string, body: any) {
+    return this.httpClient.put(`${this.baseUrl}/${id}`, id)
+      .subscribe((data) => {
+        return;
+      })
   }
 }
